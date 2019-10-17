@@ -36,7 +36,10 @@ namespace Hellang.Middleware.ProblemDetails.Sample
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddProblemDetails(ConfigureProblemDetails).AddMvcCore().AddJsonFormatters(x => x.NullValueHandling = NullValueHandling.Ignore);
+            services.AddProblemDetails(ConfigureProblemDetails)
+                    .AddMvcCore()
+                    .AddJsonFormatters(x => x.NullValueHandling = NullValueHandling.Ignore)
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public override void Configure(IApplicationBuilder app)
@@ -90,6 +93,7 @@ namespace Hellang.Middleware.ProblemDetails.Sample
     }
 
     [Route("mvc")]
+    [ApiController]
     public class MvcController : ControllerBase
     {
         [HttpGet("status/{statusCode}")]
